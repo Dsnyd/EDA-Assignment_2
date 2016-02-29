@@ -1,0 +1,9 @@
+#########Plot 2
+###Get Baltimore City data using fips code "24510"
+
+balt<-subset(NEI,fips=="24510")
+
+bsum<-tapply(balt$Emissions/10^3,balt$year, sum)
+
+barplot(bsum, ylab="Total Emissions (tons)")
+

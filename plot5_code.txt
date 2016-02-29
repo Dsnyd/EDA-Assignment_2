@@ -1,0 +1,17 @@
+###Plot 5 How have emissions from motor  vehicle sources changed from 1999to 2008 in Baltimore City?
+##########Use grep to pullout vehicle data
+
+SCCvehicle<-grepl(pattern="vehicle",SCC$EI.Sector, ignore.case=TRUE)
+
+SCCvehicleSCC<-SCC[SCCvehicle,]$SCC
+
+NEIvehicles<-NEI[NEI$SCC %in% SCCvehicleSCC,]
+
+balt<-subset(NEIvehiclesSCC, fips=="24510")
+
+#####Plot the data
+
+g<-ggplot(aes(year, Emissions/10^3), data=balt)
+
+
+g+geom_bar(stat="identity")+facet_grid(.~city)+labs(x="Year",y=expression("Total PM"[2.5]*"Emissions (thousands of tons)"))

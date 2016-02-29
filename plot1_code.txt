@@ -1,0 +1,17 @@
+##### Data unzipped to c drive then read in using readRDS
+
+NEI<-readRDS(file="C:\\R_Files\\summarySCC_PM25.rds")
+
+SCC<-readRDS(file="C:\\R_Files\\Source_Classification_Code.rds")
+#Look at the data
+head(NEI)
+str(NEI)
+
+head(SCC)
+
+
+### Plot_1 Emissions sums divded by 1000 in the plot to follow the EPA reporting in 1000s of tons
+
+sum<-tapply(total$Emissions/10^3,total$year, sum)
+
+barplot(sum, ylim=c(0,8000),ylab="Total Emissions (thousands of tons)", xlab="Year")

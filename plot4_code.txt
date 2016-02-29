@@ -1,0 +1,17 @@
+####plot 4
+#### subset data for coal combustion using SCC classification codes Level.One and Level.Four 
+
+SCCcombustion<-grepl(pattern="comb", SCC$SCC.Level.One, ignore.case=TRUE)
+SCCCoal<-grepl(pattern ="coal",SCC$SCCLevel.Four, ignore.case=TRUE)
+
+ 
+SCCcombustionSCC<-SCC[SCCcombustion & SCCCoal,]$SCC
+
+NEICoalCombustionValues<-NEI[NEI$SCC %in% SCCcombustionSCC,]
+
+#####use tapply to calculate sum for coal emissions
+
+sum<-tapply(NEICoalCombustionValues$Emissions/10^3,NEICoalCombustionValues$year, sum)
+
+
+barplot(sum, ylim=c(0,600),xlab="Year",ylab=expression("PM"[2.5]*" Emissions (tons)")

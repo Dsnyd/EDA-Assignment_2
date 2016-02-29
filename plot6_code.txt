@@ -1,0 +1,52 @@
+SCCvehicle<-grepl(pattern="vehicle",SCC$EI.Sector, ignore.case=TRUE)
+ 
+SCCvehicleSCC<-SCC[SCCvehicle,]$SCC
+ 
+NEIvehicles<-NEI[NEI$SCC %in% SCCvehicleSCC,]
+ 
+balt<-subset(NEIvehiclesSCC, fips=="24510")
+#####Compare Emissions from motor vehicle sources in Blatimore City with Emissions from Los Angeles County, California (fips=="06037"). Which city has the greater changes over time in motor vehicle emissions?
+
+NEIbalt<-subset(NEIvehicleScc, fips="06037")
+
+LA<-subset(NEIvehicles, fips=="06037")
+
+balt<-subset(NEIvehicles, fips=="24510")
+
+balt$city<-"Baltimore"
+
+LA$city<-"Los Angeles"
+
+LA<-subset(NEIvehicles, fips="06037")
+balt$city<-"Baltimore"
+LA$city<-"Los Angeles"
+NEI$Both<-rbind(balt,LA)
+
+g<-ggplot(NEIBoth,aes(x=year,y=Emissions))
+
+
+g+geom_bar(stat="identity")+facet_grid(.~city)+labs(x="Year",y=expression("Total PM"[2.5]*"Emissions (thousands of tons)"))
+
+
+#############Which City showed the greatest change in emissions 
+
+#####Baltimore range is 
+
+bsum<-tapply(NEIvehicleBalt$Emissions, NEIvehicleBalt$year, sum)
+bsum
+     1999      2002      2005      2008 
+346.82000 134.30882 130.43038  88.27546 
+
+#range is 
+range(bsum)
+[1]  88.27546 346.82000
+
+#range of Emissions in LA
+
+lasum<-tapply(NEIvehiclela$Emissions, NEIvehiclela$year, sum)
+
+range(lasum)
+[1] 3931.120 4601.415
+
+####Maximum change in LA was 670.28--the winner!
+#####Maxium change in Baltimore city was 258.55
